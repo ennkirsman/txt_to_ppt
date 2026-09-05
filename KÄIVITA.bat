@@ -14,7 +14,7 @@ echo.
 
 call :FIND_PYTHON
 
-if not defined PYTHON_CMD (
+if not defined PYTHON_MODE (
     echo Pythonit ei leitud. Proovin Python 3.12 automaatselt paigaldada...
     echo.
     where winget >nul 2>&1
@@ -24,12 +24,12 @@ if not defined PYTHON_CMD (
     if errorlevel 1 goto NO_PYTHON
 
     call :FIND_PYTHON
-    if not defined PYTHON_CMD goto NO_PYTHON
+    if not defined PYTHON_MODE goto NO_PYTHON
 )
 
 if not exist ".venv\Scripts\python.exe" (
     echo Esmakordne käivitus: loon rakendusele kohaliku töökeskkonna...
-    %PYTHON_CMD% -m venv .venv
+    call :CREATE_VENV
     if errorlevel 1 goto ERROR_EXIT
 )
 
@@ -58,26 +58,41 @@ echo.
 goto END
 
 :FIND_PYTHON
-set "PYTHON_CMD="
+set "PYTHON_MODE="
+set "PYTHON_EXE="
 where py >nul 2>&1
 if not errorlevel 1 (
-    set "PYTHON_CMD=py -3"
+    set "PYTHON_MODE=launcher"
     goto :eof
 )
 where python >nul 2>&1
 if not errorlevel 1 (
-    set "PYTHON_CMD=python"
+    set "PYTHON_MODE=exe"
+    set "PYTHON_EXE=python"
     goto :eof
 )
 if exist "%LocalAppData%\Programs\Python\Python312\python.exe" (
-    set "PYTHON_CMD=\"%LocalAppData%\Programs\Python\Python312\python.exe\""
+    set "PYTHON_MODE=exe"
+    set "PYTHON_EXE=%LocalAppData%\Programs\Python\Python312\python.exe"
     goto :eof
 )
 if exist "%ProgramFiles%\Python312\python.exe" (
-    set "PYTHON_CMD=\"%ProgramFiles%\Python312\python.exe\""
+    set "PYTHON_MODE=exe"
+    set "PYTHON_EXE=%ProgramFiles%\Python312\python.exe"
     goto :eof
 )
 goto :eof
+
+:CREATE_VENV
+if /I "%PYTHON_MODE%"=="launcher" (
+    py -3 -m venv .venv
+    exit /b %errorlevel%
+)
+if /I "%PYTHON_MODE%"=="exe" (
+    "%PYTHON_EXE%" -m venv .venv
+    exit /b %errorlevel%
+)
+exit /b 1
 
 :NO_PYTHON
 echo.
