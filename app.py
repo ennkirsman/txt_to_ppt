@@ -29,13 +29,16 @@ with st.sidebar:
     max_pdf_pages = st.number_input("PDF-i maksimaalne lehekülgede arv", min_value=5, max_value=300, value=80, step=5)
 
 st.subheader("1. Keeled")
+language_options = ["— vali keel —", *LANGUAGES]
 col1, col2 = st.columns(2)
 with col1:
-    input_language = st.selectbox("Mis keeles on algtekstid?", LANGUAGES, index=0)
+    input_language = st.selectbox("Mis keeles on algtekstid?", language_options, index=0)
 with col2:
-    output_language = st.selectbox("Mis keeles slaide soovid?", LANGUAGES, index=0)
+    output_language = st.selectbox("Mis keeles slaide soovid?", language_options, index=0)
 
-st.info("Failide laadimine on allpool meelega alles pärast keelevalikut — eriti fotode OCR vajab algteksti keelt.")
+if input_language == "— vali keel —" or output_language == "— vali keel —":
+    st.info("Vali kõigepealt algtekstide keel ja soovitud slaidide keel. Failide laadimine avaneb alles pärast mõlema valiku tegemist.")
+    st.stop()
 
 st.subheader("2. Laadi õppematerjalid")
 uploaded_files = st.file_uploader(
