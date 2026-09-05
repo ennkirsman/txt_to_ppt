@@ -1,0 +1,23 @@
+ÕPPETEKST → POWERPOINT — LOKAALNE TESTVERSIOON
+
+KÄIVITAMINE
+1. Paki ZIP-fail tavaliseks kaustaks lahti.
+2. Ava lahtipakitud kaust.
+3. Tee failil KÄIVITA.bat topeltklõps.
+4. Esimesel käivitamisel loob programm endale vajaliku töökeskkonna ja paigaldab vajalikud komponendid.
+5. Rakendus avaneb sinu vaikimisi veebilehitsejas aadressil http://localhost:8501
+
+OLULINE
+- Rakendus töötab sinu enda arvutis lokaalselt.
+- Programmi kasutamise ajal jäta must KÄIVITA.bat aken avatuks.
+- Sulgemiseks võid selle akna kinni panna või vajutada seal Ctrl+C.
+- Esmakordsel käivitamisel on internetiühendus vajalik.
+- AI-funktsioonide kasutamiseks on vaja OpenAI API võtit. Selle saad sisestada rakenduse vasakus külgpaneelis.
+- OpenAI API võtit ei kirjutata GitHubi repositooriumisse.
+
+KUI VEEBILEHITSEJA EI AVANE ISE
+Ava Chrome, Edge, Opera või mõni muu veebilehitseja ja kirjuta aadressiribale:
+http://localhost:8501
+
+KUI PYTHON PUUDUB
+KÄIVITA.bat proovib Windowsis Python 3.12 automaatselt paigaldada. Kui see ei õnnestu, avatakse Pythoni ametlik allalaadimisleht. Pärast Pythoni paigaldamist tee KÄIVITA.bat failil uuesti topeltklõps.
