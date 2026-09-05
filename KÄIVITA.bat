@@ -45,6 +45,8 @@ if not exist ".venv\PAKETID_PAIGALDATUD" (
     type nul > ".venv\PAKETID_PAIGALDATUD"
 )
 
+set "STREAMLIT_BROWSER_GATHER_USAGE_STATS=false"
+
 echo.
 echo ------------------------------------------------------------
 echo Rakendus käivitub. Ära sulge seda akent kasutamise ajal.
@@ -54,7 +56,7 @@ echo http://localhost:8501
 echo ------------------------------------------------------------
 echo.
 
-".venv\Scripts\python.exe" -m streamlit run app.py --server.headless false --server.address localhost --server.port 8501
+".venv\Scripts\python.exe" -m streamlit run app.py --server.headless false --server.address localhost --server.port 8501 --browser.gatherUsageStats false
 goto END
 
 :FIND_PYTHON
